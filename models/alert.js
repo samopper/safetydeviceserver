@@ -25,8 +25,4 @@ const AlertSchema = new mongoose.Schema({
   }
 })
 
-const Alert = mongoose.model('Alert', AlertSchema)
-
-module.exports = {
-  Alert: Alert
-}
+module.exports = AlertSchema
