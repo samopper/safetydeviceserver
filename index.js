@@ -5,6 +5,7 @@ Entry Point Of Alert Device API
 const bearerToken = require('express-bearer-token')
 const bodyparser = require('body-parser')
 const helmet = require('helmet')
+const cors = require('cors')
 const SocketIO = require('socket.io')
 const express = require('express')
 const mongoose = require('mongoose')
@@ -20,24 +21,28 @@ const maxqueue = 511
 const hostName = null // 'safetydevice.net'
 
 const app = express()
-
+app.use(cors())
 app.use(helmet())
+app.use(helmet.contentSecurityPolicy({
+  directives: {
+    defaultSrc: ["'self'"],
+    connectSrc: ["'localhost:8080"]
+  }
+}))
 app.use(bearerToken())
 app.use(bodyparser.json())
-
 app.get('/', (req, res) => {
   res.send('0h.3.1.1.0 \nU+0000')
   console.log('visitor from ', req.ip)
 })
 
-const alertPost = require('./routes/alertReport.route').post
+const alert = require('./routes/alertReport.route')
 app.route('/api/alerts')
   .post((req, res) => {
-    alertPost(req, res, io, db)
+    alert.post(req, res, io, db)
   })
   .get((req, res) => {
-    console.log('alert get ')
-    res.send('good')
+    alert.get(req, res, db)
   })
 
 app.get('/api/user', (req, res) => {
@@ -54,13 +59,14 @@ const ioOptions = {
   serveClient: false, // not serving files
   pingInterval: 10000, // send new ping packet interval
   pingTimeout: 5000, // how long without pong before closing connection
-  // origins: '*', // allowed origins
+  //origins: '*:*', // allowed origins doesnt work
   cookie: 'alert.io', // name of http cookie containing client sid
   cookiePath: '/alert.io'
 }
 
 const io = new SocketIO(ioPort, ioOptions)
 console.log('io listening on port ', ioPort)
+//io.set('origins', '*:*') doesnt work
 // socketio auth middleware
 io.use((socket, next) => {
   console.log('auth')
