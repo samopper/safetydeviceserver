@@ -55,13 +55,14 @@ app.listen(apiPort, hostName, maxqueue, () => {
 
 const ioPort = 8080
 const ioOptions = {
-  path: '/alert.io', // capture /alert.io
+  //path: '/alert.io', // capture /alert.io
   serveClient: false, // not serving files
   pingInterval: 10000, // send new ping packet interval
   pingTimeout: 5000, // how long without pong before closing connection
-  //origins: '*:*', // allowed origins doesnt work
+  origins: '*:*', // allowed origins doesnt work
   cookie: 'alert.io', // name of http cookie containing client sid
-  cookiePath: '/alert.io'
+  cookiePath: '/alert.io',
+  transport: ['websocket']
 }
 
 const io = new SocketIO(ioPort, ioOptions)
