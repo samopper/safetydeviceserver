@@ -23,12 +23,6 @@ exports.post = function (req, res, io, db) {
 exports.get = function(req, res, db){
   const Alert = db.model('Alert', AlertSchema)
   Alert.find({}, function(err, alert) {
-    var alertMap = {};
-
-    alert.forEach(function(a) {
-      alertMap[a._id] = a;
-    });
-
-    res.send(alertMap);  
+    res.send(alert);  
   });
 }
