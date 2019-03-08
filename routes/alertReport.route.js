@@ -16,6 +16,17 @@ exports.post = function (req, res, io, db) {
       console.log('saved alert to database')
     }
   })
+
+  const accountSid = 'ACecc0e83e82e5a4fe21379ebfa7d1c853'
+  const authToken = 'bf41dde94fff6a984ab4d49ff8bb3a64'
+  const client = require('twilio')(accountSid, authToken)
+  client.messages
+    .create({
+      body: 'Alert Detected',
+      from: '+12039416715',
+      to: '+19087831635'
+    }).then( (message) => console.log('sent', message.sid))
+    
   res.send(JSON.stringify(req.body))
   io.sockets.emit('alert', req.body)
 }
@@ -23,6 +34,6 @@ exports.post = function (req, res, io, db) {
 exports.get = function(req, res, db){
   const Alert = db.model('Alert', AlertSchema)
   Alert.find({}, function(err, alert) {
-    res.send(alert);  
+    res.send(alert); 
   });
 }
