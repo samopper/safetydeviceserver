@@ -9,7 +9,6 @@ exports.post = function (req, res, io, db) {
   alert.date = Date.now()
   alert.userID = mongoose.Types.ObjectId(req.userID)
   alert.save((err, a) => {
-    console.log('callback')
     if (err) {
       console.log('error saving to database: ', err)
     } else {
