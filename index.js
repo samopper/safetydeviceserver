@@ -23,12 +23,7 @@ const hostName = null // 'safetydevice.net'
 const app = express()
 app.use(cors())
 app.use(helmet())
-app.use(helmet.contentSecurityPolicy({
-  directives: {
-    defaultSrc: ["'self'"],
-    connectSrc: ["'localhost:8080"]
-  }
-}))
+
 app.use(bearerToken())
 app.use(bodyparser.json())
 app.get('/', (req, res) => {
