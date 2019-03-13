@@ -5,7 +5,8 @@ const mongoose = require('mongoose')
 
 const AlertSchema = new mongoose.Schema({
   userID: {
-    type: mongoose.Schema.Types.ObjectId
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
   },
   date: {
     type: Date,

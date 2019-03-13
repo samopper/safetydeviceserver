@@ -45,8 +45,8 @@ app.route('/api/alerts')
     alert.get(req, res, db)
   })
 
-app.get('/api/user', (req, res) => {
-  res.send('user: ' + JSON.stringify(req.body))
+app.get('/api/user/:userId', (req, res) => {
+  res.send(req.params);
 })
 
 app.listen(apiPort, hostName, maxqueue, () => {
