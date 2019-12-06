@@ -17,7 +17,7 @@ exports.post = function (req, res, io, db) {
   })
 
   const accountSid = 'ACecc0e83e82e5a4fe21379ebfa7d1c853'
-  const authToken = 'bf41dde94fff6a984ab4d49ff8bb3a64'
+  const authToken = '' // I know this was bad and have changed the token on my account
   const client = require('twilio')(accountSid, authToken)
   client.messages
     .create({
