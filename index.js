@@ -9,7 +9,7 @@ const cors = require('cors')
 const SocketIO = require('socket.io')
 const express = require('express')
 const mongoose = require('mongoose')
-
+//I deleted this database. I should have used env variables but was lazy and stupid. lesson learned.
 var db = mongoose.createConnection('mongodb+srv://safetyapi:33mO14rUQQSDSVqGDng9PgPlrW6q@safetydevicecluster-69inf.mongodb.net/alertapi?retryWrites=true')
 db.once('open', () => {
   console.log('mongodb online')
