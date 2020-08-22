@@ -22,8 +22,8 @@ exports.post = function (req, res, io, db) {
   client.messages
     .create({
       body: 'Alert Detected',
-      from: '+12039416715',
-      to: '+19087831635'
+      from: '+12039416715', // my twilio phone number
+      to: ''//a test phone number was here
     }).then( (message) => console.log('sent', message.sid))
     
   res.send(JSON.stringify(req.body))
